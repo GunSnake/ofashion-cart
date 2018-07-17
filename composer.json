@@ -1,5 +1,5 @@
 {
-    "name": "ofashion/cart",
+    "name": "ofashion-package/cart",
     "description": "基础购物车插件包，用于尝试把购物车从代码中抽象出来",
     "type": "library",
     "license": "MIT",
