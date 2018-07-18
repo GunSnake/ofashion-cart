@@ -1,26 +1,32 @@
 <?php
-
+/**
+ * goods minimum cell
+ * User: admin
+ * Date: 2018/7/18
+ * Time: 11:21
+ */
 namespace Ofashion\Cart;
 
-class CartCell
+class CartCell extends CartCellPrototype implements CellDecoratorInterface
 {
-    private $id = '';
-
-    private $num = 0;
-
-    private $select = 0;
-
     public function __construct(string $id, int $num, int $select, array $parameter)
     {
         $this->setParameter('id', $id);
         $this->setParameter('num', $num);
         $this->setParameter('select', $select);
         foreach ($parameter as $key => &$item){
-            $this->$key = $item;
+            $this->setParameter($key, $item);
         }
     }
 
-    public function getParameter(string $name)
+    use CellBehavior;
+
+    public function getMinimumId()
+    {
+        return $this->id;
+    }
+
+    public function getParameter(string $name): string
     {
         return $this->$name;
     }
@@ -30,13 +36,17 @@ class CartCell
         $this->$name = $value;
     }
 
-    public function __get($name)
+    public function __get($name): string
     {
-        return '';
+        return property_exists($this, $name) ? $this->$name : '';
     }
 
     public function __set($name, $value)
     {
         $this->$name = $value;
+    }
+
+    public function __clone()
+    {
     }
 }
